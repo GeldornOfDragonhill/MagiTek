@@ -1,0 +1,28 @@
+modLoader="javafml"
+loaderVersion="[31,)"
+
+issueTrackerURL="https://github.com/GeldornOfDragonhill/Wondrous-Magitek/issues"
+
+[[mods]] #mandatory
+modId="wondrousmagitek"
+version="${file.jarVersion}"
+displayName="Wondrous Magitek"
+displayURL="https://github.com/GeldornOfDragonhill/Wondrous-Magitek"
+authors="GeldornOfDragonhill"
+description='''
+A mod concerning magical apparatus
+'''
+
+[[dependencies.wondrousmagitek]]
+    modId="forge"
+    mandatory=true
+    versionRange="[31,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.wondrousmagitek]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.15.2]"
+    ordering="NONE"
+    side="BOTH"
