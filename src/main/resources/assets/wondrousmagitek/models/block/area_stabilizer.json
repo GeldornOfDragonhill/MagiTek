@@ -1,0 +1,6 @@
+{
+	"parent": "block/cube_all",
+	"textures": {
+		"all": "wondrousmagitek:/block/area_stabilizer"
+	}
+}
