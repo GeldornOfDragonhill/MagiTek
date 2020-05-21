@@ -1,7 +1,7 @@
 package net.dragonhill.wondrousmagitek.global.chunkLoading;
 
 import com.google.common.collect.Sets;
-import net.dragonhill.wondrousmagitek.tileentities.AreaStabilizerTileEntity;
+import net.dragonhill.wondrousmagitek.blocks.areastabilizer.AreaStabilizerTileEntity;
 import net.dragonhill.wondrousmagitek.util.LogHelper;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
@@ -103,7 +103,9 @@ public class AreaStabilizerUserManager {
 			}
 		} else { //New area stabilizer
 			this.ownedAreaStabilizers.put(pos, null);
-			this.tryActivate(server, pos, true);
+
+			//Important: use the version with the tileEntity here
+			this.tryActivate(server, pos, tileEntity, true);
 		}
 	}
 
@@ -139,7 +141,7 @@ public class AreaStabilizerUserManager {
 
 		DimensionType dimensionType = DimensionType.getById(areaStabilizerPos.getDimensionId());
 
-		if(dimensionType == null) {
+		if (dimensionType == null) {
 			LogHelper.getLogger().error(String.format("Couldn't load dimension %d, removing area stabilizer", areaStabilizerPos.getDimensionId()));
 			this.ownedAreaStabilizers.remove(areaStabilizerPos);
 			return;
@@ -147,7 +149,7 @@ public class AreaStabilizerUserManager {
 
 		ServerWorld world = server.getWorld(dimensionType);
 
-		if(world == null) {
+		if (world == null) {
 			LogHelper.getLogger().error(String.format("Couldn't load world %s, removing area stabilizer", world.toString()));
 			this.ownedAreaStabilizers.remove(areaStabilizerPos);
 			return;
@@ -161,7 +163,12 @@ public class AreaStabilizerUserManager {
 			return;
 		}
 
-		AreaStabilizerTileEntity areaStabilizerTileEntity = (AreaStabilizerTileEntity)tileEntity;
+		this.tryActivate(server, areaStabilizerPos, (AreaStabilizerTileEntity)tileEntity, forceSendLimitMessage);
+	}
+
+	//Need to split that method because getting the tile entity while the tile entity is in the onLoad method seems to be quite problematic
+	private void tryActivate(MinecraftServer server, DimensionBlockPosition areaStabilizerPos, AreaStabilizerTileEntity areaStabilizerTileEntity, boolean forceSendLimitMessage) {
+
 		List<ChunkPos> chunks = CoordinateHelper.getChunksAsListFromPosAndRadius(areaStabilizerTileEntity.getPos(), areaStabilizerTileEntity.getRadius());
 
 		if(chunks.size() > (this.maxChunks - this.currentChunks)) {
@@ -175,7 +182,7 @@ public class AreaStabilizerUserManager {
 		ActiveAreaStabilizerData data = new ActiveAreaStabilizerData(areaStabilizerPos, areaStabilizerTileEntity.getRadius());
 
 		for(ChunkPos chunk : chunks) {
-			allocator.allocate((ServerWorld)tileEntity.getWorld(), chunk, data);
+			allocator.allocate((ServerWorld)areaStabilizerTileEntity.getWorld(), chunk, data);
 		}
 
 		this.currentChunks += chunks.size();

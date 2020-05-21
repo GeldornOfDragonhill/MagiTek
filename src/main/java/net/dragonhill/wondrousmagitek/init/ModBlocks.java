@@ -1,8 +1,8 @@
 package net.dragonhill.wondrousmagitek.init;
 
-import net.dragonhill.wondrousmagitek.blocks.AreaStabilizer;
+import net.dragonhill.wondrousmagitek.blocks.areastabilizer.AreaStabilizerBlock;
 import net.dragonhill.wondrousmagitek.blocks.BlockBase;
-import net.dragonhill.wondrousmagitek.blocks.TickBlock;
+import net.dragonhill.wondrousmagitek.blocks.tick.TickBlock;
 import net.dragonhill.wondrousmagitek.config.Constants;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
@@ -26,6 +26,6 @@ public class ModBlocks {
 		return blockRegistryObject;
 	}
 
-	public static RegistryObject<AreaStabilizer> areaStabilizer = register("area_stabilizer", AreaStabilizer::new, true);
+	public static RegistryObject<AreaStabilizerBlock> areaStabilizer = register("area_stabilizer", AreaStabilizerBlock::new, true);
 	public static RegistryObject<TickBlock> tickBlock = register("tick_block", TickBlock::new, true);
 }

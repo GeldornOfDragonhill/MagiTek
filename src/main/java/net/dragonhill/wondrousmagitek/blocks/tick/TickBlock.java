@@ -1,5 +1,6 @@
-package net.dragonhill.wondrousmagitek.blocks;
+package net.dragonhill.wondrousmagitek.blocks.tick;
 
+import net.dragonhill.wondrousmagitek.blocks.BlockBase;
 import net.dragonhill.wondrousmagitek.init.ModTileEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;

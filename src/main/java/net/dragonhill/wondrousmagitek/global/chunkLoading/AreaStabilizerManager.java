@@ -3,7 +3,7 @@ package net.dragonhill.wondrousmagitek.global.chunkLoading;
 import net.dragonhill.wondrousmagitek.config.Config;
 import net.dragonhill.wondrousmagitek.config.Constants;
 import net.dragonhill.wondrousmagitek.global.ScopedServerServices;
-import net.dragonhill.wondrousmagitek.tileentities.AreaStabilizerTileEntity;
+import net.dragonhill.wondrousmagitek.blocks.areastabilizer.AreaStabilizerTileEntity;
 import net.dragonhill.wondrousmagitek.util.ConsumerDataSink;
 import net.dragonhill.wondrousmagitek.util.LogHelper;
 import net.minecraft.entity.player.PlayerEntity;

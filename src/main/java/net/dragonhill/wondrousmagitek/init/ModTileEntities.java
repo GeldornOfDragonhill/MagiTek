@@ -2,8 +2,8 @@ package net.dragonhill.wondrousmagitek.init;
 
 import net.dragonhill.wondrousmagitek.blocks.BlockBase;
 import net.dragonhill.wondrousmagitek.config.Constants;
-import net.dragonhill.wondrousmagitek.tileentities.AreaStabilizerTileEntity;
-import net.dragonhill.wondrousmagitek.tileentities.TickTileEntity;
+import net.dragonhill.wondrousmagitek.blocks.areastabilizer.AreaStabilizerTileEntity;
+import net.dragonhill.wondrousmagitek.blocks.tick.TickTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.fml.RegistryObject;

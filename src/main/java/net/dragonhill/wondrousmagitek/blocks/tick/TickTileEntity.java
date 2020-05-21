@@ -1,4 +1,4 @@
-package net.dragonhill.wondrousmagitek.tileentities;
+package net.dragonhill.wondrousmagitek.blocks.tick;
 
 import net.dragonhill.wondrousmagitek.init.ModTileEntities;
 import net.dragonhill.wondrousmagitek.util.LogHelper;
