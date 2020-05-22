@@ -66,7 +66,17 @@ public class AreaStabilizerUserManager {
 
 		ActiveAreaStabilizerData data = this.ownedAreaStabilizers.get(pos);
 
-		if(data != null) {
+		if(data == null) { //Not existing or deactivated
+			if(!this.ownedAreaStabilizers.containsKey(pos)) { //Not existing
+				this.ownedAreaStabilizers.put(pos, null);
+			}
+
+			//Important: use the version with the tileEntity here
+			boolean activationResult = this.tryActivate(server, pos, tileEntity, true);
+			if(activationResult && this.hasLoadersOverLimit) {
+				this.tryActivateAll(server);
+			}
+		} else { //data != null
 			if(data.getRadius() == tileEntity.getRadius()) {
 				//Nothing changed
 				return;
@@ -101,11 +111,6 @@ public class AreaStabilizerUserManager {
 			if(this.hasLoadersOverLimit && sizeDifference < 0) {
 				this.tryActivateAll(server);
 			}
-		} else { //New area stabilizer
-			this.ownedAreaStabilizers.put(pos, null);
-
-			//Important: use the version with the tileEntity here
-			this.tryActivate(server, pos, tileEntity, true);
 		}
 	}
 
@@ -137,14 +142,14 @@ public class AreaStabilizerUserManager {
 		}
 	}
 
-	private void tryActivate(MinecraftServer server, DimensionBlockPosition areaStabilizerPos, boolean forceSendLimitMessage) {
+	private boolean tryActivate(MinecraftServer server, DimensionBlockPosition areaStabilizerPos, boolean forceSendLimitMessage) {
 
 		DimensionType dimensionType = DimensionType.getById(areaStabilizerPos.getDimensionId());
 
 		if (dimensionType == null) {
 			LogHelper.getLogger().error(String.format("Couldn't load dimension %d, removing area stabilizer", areaStabilizerPos.getDimensionId()));
 			this.ownedAreaStabilizers.remove(areaStabilizerPos);
-			return;
+			return false;
 		}
 
 		ServerWorld world = server.getWorld(dimensionType);
@@ -152,7 +157,7 @@ public class AreaStabilizerUserManager {
 		if (world == null) {
 			LogHelper.getLogger().error(String.format("Couldn't load world %s, removing area stabilizer", world.toString()));
 			this.ownedAreaStabilizers.remove(areaStabilizerPos);
-			return;
+			return false;
 		}
 
 		TileEntity tileEntity = world.getTileEntity(areaStabilizerPos.getPos());
@@ -160,14 +165,14 @@ public class AreaStabilizerUserManager {
 		if(!(tileEntity instanceof AreaStabilizerTileEntity)) {
 			LogHelper.getLogger().error(String.format("Couldn't get tile entity for area stabilizer @%s, removing area stabilizer", areaStabilizerPos.toString()));
 			this.ownedAreaStabilizers.remove(areaStabilizerPos);
-			return;
+			return false;
 		}
 
-		this.tryActivate(server, areaStabilizerPos, (AreaStabilizerTileEntity)tileEntity, forceSendLimitMessage);
+		return this.tryActivate(server, areaStabilizerPos, (AreaStabilizerTileEntity)tileEntity, forceSendLimitMessage);
 	}
 
 	//Need to split that method because getting the tile entity while the tile entity is in the onLoad method seems to be quite problematic
-	private void tryActivate(MinecraftServer server, DimensionBlockPosition areaStabilizerPos, AreaStabilizerTileEntity areaStabilizerTileEntity, boolean forceSendLimitMessage) {
+	private boolean tryActivate(MinecraftServer server, DimensionBlockPosition areaStabilizerPos, AreaStabilizerTileEntity areaStabilizerTileEntity, boolean forceSendLimitMessage) {
 
 		List<ChunkPos> chunks = CoordinateHelper.getChunksAsListFromPosAndRadius(areaStabilizerTileEntity.getPos(), areaStabilizerTileEntity.getRadius());
 
@@ -176,7 +181,7 @@ public class AreaStabilizerUserManager {
 				this.sendMessageToPlayer(server, "message.wondrousmagitek.area_stabilizer.over_limit", areaStabilizerPos);
 			}
 			this.hasLoadersOverLimit = true;
-			return;
+			return false;
 		}
 
 		ActiveAreaStabilizerData data = new ActiveAreaStabilizerData(areaStabilizerPos, areaStabilizerTileEntity.getRadius());
@@ -187,6 +192,8 @@ public class AreaStabilizerUserManager {
 
 		this.currentChunks += chunks.size();
 		this.ownedAreaStabilizers.replace(areaStabilizerPos, data);
+
+		return true;
 	}
 
 	private void deactivateAll(MinecraftServer server) {

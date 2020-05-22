@@ -5,22 +5,63 @@ import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.widget.Widget;
 
+import java.util.function.Consumer;
+
 public class RangeSelector extends Widget {
-	private final int min;
-	private final int max;
+	private int min;
+	private int max;
 	private int current;
 
 	final int buttonSize;
+	private final Consumer<RangeSelector> onUpdate;
 	final int buttonLeft;
 	final int buttonRight;
 
-	public RangeSelector(final int x, final int y, final int width, final int height, int min, int max, int current) {
+	public void setMin(int newMin) {
+		if(newMin > this.max) {
+			this.max = newMin;
+		}
+
+		if(newMin > this.current) {
+			this.current = newMin;
+		}
+
+		this.min = newMin;
+	}
+
+	public void setMax(int newMax) {
+		if(newMax < this.min) {
+			this.min = newMax;
+		}
+
+		if(newMax < this.current) {
+			this.current = newMax;
+		}
+
+		this.max = newMax;
+	}
+
+	public void setCurrent(int newCurrent) {
+		if(newCurrent < this.min || newCurrent > this.max) {
+			return;
+		}
+
+		this.current = newCurrent;
+	}
+
+	public int getCurrent() {
+		return this.current;
+	}
+
+	public RangeSelector(final int x, final int y, final int width, final int height, int min, int max, int current, Consumer<RangeSelector> onUpdate) {
 		super(x, y, width, height, "msg");
 
 		this.min = min;
 		this.max = max;
 
 		this.current = current;
+
+		this.onUpdate = onUpdate;
 
 		this.buttonSize = height / 2;
 		this.buttonRight = this.x + this.width;
@@ -30,15 +71,20 @@ public class RangeSelector extends Widget {
 	private void onPlus() {
 		if(this.current < this.max) {
 			this.current += 1;
-			this.playDownSound(Minecraft.getInstance().getSoundHandler());
+			this.onValueChanged();
 		}
 	}
 
 	private void onMinus() {
 		if(this.current > this.min) {
 			this.current -= 1;
-			this.playDownSound(Minecraft.getInstance().getSoundHandler());
+			this.onValueChanged();
 		}
+	}
+
+	private void onValueChanged() {
+		this.onUpdate.accept(this);
+		this.playDownSound(Minecraft.getInstance().getSoundHandler());
 	}
 
 	private boolean isInButton(int mouseX, int mouseY, boolean plus) {

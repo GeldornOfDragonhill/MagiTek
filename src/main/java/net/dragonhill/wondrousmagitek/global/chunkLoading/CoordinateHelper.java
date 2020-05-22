@@ -8,10 +8,13 @@ import java.util.function.Function;
 
 public class CoordinateHelper {
 	public static final <T extends Collection<ChunkPos>> T getChunksFromPosAndRadius(BlockPos pos, int radius, Function<Integer, T> createCollectionWithSize) {
-		final int xStart = pos.getX() - radius;
-		final int xStop = pos.getX() + radius;
-		final int zStart = pos.getZ() - radius;
-		final int zStop = pos.getZ() + radius;
+		final int chunkX = pos.getX() >> 4;
+		final int chunkY = pos.getY() >> 4;
+
+		final int xStart = chunkX - radius;
+		final int xStop = chunkX + radius;
+		final int zStart = chunkY - radius;
+		final int zStop = chunkY + radius;
 
 		int numChunks = 2 * radius + 1;
 		numChunks = numChunks * numChunks;
@@ -20,7 +23,7 @@ public class CoordinateHelper {
 
 		for(int x = xStart; x <= xStop; ++x) {
 			for(int z = zStart; z <= zStop; ++z) {
-				chunks.add(new ChunkPos(x >> 4, z >> 4));
+				chunks.add(new ChunkPos(x, z));
 			}
 		}
 

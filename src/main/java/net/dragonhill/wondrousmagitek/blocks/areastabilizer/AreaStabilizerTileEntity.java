@@ -1,8 +1,10 @@
 package net.dragonhill.wondrousmagitek.blocks.areastabilizer;
 
+import net.dragonhill.wondrousmagitek.config.Config;
 import net.dragonhill.wondrousmagitek.global.chunkLoading.AreaStabilizerManager;
 import net.dragonhill.wondrousmagitek.init.ModBlocks;
 import net.dragonhill.wondrousmagitek.init.ModTileEntities;
+import net.dragonhill.wondrousmagitek.util.LogHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -26,6 +28,21 @@ public class AreaStabilizerTileEntity extends TileEntity implements INamedContai
 
 	public int getRadius() {
 		return this.radius;
+	}
+
+	public void setRadius(ServerPlayerEntity sender, int radius) {
+		if(!sender.isCreative() && this.owner != sender.getName().getString()) {
+			LogHelper.getLogger().warn("The player {} tried to update a area stabilizer not owned by itself", sender.getName().getString());
+			return;
+		}
+
+		if(this.radius >= Config.SERVER.maxRadiusPerAreaStabilizer.get()) {
+			LogHelper.getLogger().warn("The player {} to set the radius too big", sender.getName().getString());
+			return;
+		}
+
+		this.radius = radius;
+		AreaStabilizerManager.getInstance().addOrUpdate(this);
 	}
 
 	public AreaStabilizerTileEntity() {

@@ -1,6 +1,10 @@
 package net.dragonhill.wondrousmagitek.ui;
 
 import net.dragonhill.wondrousmagitek.init.ModBlocks;
+import net.dragonhill.wondrousmagitek.network.ModNetworkChannel;
+import net.dragonhill.wondrousmagitek.network.values.INetValue;
+import net.dragonhill.wondrousmagitek.network.values.INetValueListHolder;
+import net.dragonhill.wondrousmagitek.network.values.NetValueList;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -16,15 +20,22 @@ import javax.annotation.Nullable;
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class InventoryScreenContainer<TTileEntity extends TileEntity> extends Container {
+public abstract class InventoryScreenContainer<TTileEntity extends TileEntity> extends Container implements INetValueListHolder {
 
 	protected final TTileEntity tileEntity;
 	protected final IWorldPosCallable canInteractWithCallable;
 
 	protected Set<ServerPlayerEntity> listeners = new HashSet<>();
 
+	public TTileEntity getTileEntity() {
+		return this.tileEntity;
+	}
+
 	protected InventoryScreenContainer(@Nullable ContainerType<?> type, int id, PlayerInventory playerInventory, TTileEntity tileEntity) {
 		super(type, id);
+
+		this.registerNetValues();
+		this.updateNetValues(tileEntity);
 
 		this.tileEntity = tileEntity;
 		this.canInteractWithCallable = IWorldPosCallable.of(tileEntity.getWorld(), tileEntity.getPos());
@@ -83,4 +94,36 @@ public abstract class InventoryScreenContainer<TTileEntity extends TileEntity> e
 	}
 
 	protected abstract int getClientHeight();
+
+
+
+
+	private final NetValueList netValueList = new NetValueList();
+
+	protected <V extends INetValue> V addNetValue(V value) {
+		return this.netValueList.add(value);
+	}
+
+	@Override
+	public NetValueList getNetValueList() {
+		return this.netValueList;
+	}
+
+	@Override
+	public void detectAndSendChanges() {
+		super.detectAndSendChanges();
+
+		this.updateNetValues(this.tileEntity);
+
+		this.netValueList.createPayloadForChanged(payload -> {
+			for(ServerPlayerEntity listener : this.listeners) {
+
+				//TODO: can the same message be sent to all players?
+				ModNetworkChannel.sendToPlayer(new ScreenClientUpdateMessage(this.windowId, payload), listener);
+			}
+		});
+	}
+
+	protected abstract void registerNetValues();
+	protected abstract void updateNetValues(TTileEntity tileEntity);
 }

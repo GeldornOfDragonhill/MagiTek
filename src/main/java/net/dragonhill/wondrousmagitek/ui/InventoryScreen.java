@@ -6,6 +6,7 @@ import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import org.lwjgl.opengl.GL11;
 
 public abstract class InventoryScreen<T extends InventoryScreenContainer> extends ContainerScreen<T> {
 
@@ -58,6 +59,15 @@ public abstract class InventoryScreen<T extends InventoryScreenContainer> extend
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+		this.font.drawString(this.title.getFormattedText(), 8f, 5f, 0xFF000000);
+
+		if(!this.container.getNetValueList().getWasUpdated()) {
+			GL11.glPushMatrix();
+			GL11.glScalef(0.5f, 0.5f, 0.5f);
+			this.font.drawString("Waiting for server...", 15f, this.clientHeight * 2 - 5, 0xFFCC6666);
+			GL11.glPopMatrix();
+		}
+
 		this.drawClientForeground(mouseX, mouseY);
 	}
 
