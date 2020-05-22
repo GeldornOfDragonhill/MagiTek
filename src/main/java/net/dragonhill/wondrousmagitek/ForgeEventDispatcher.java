@@ -1,9 +1,11 @@
 package net.dragonhill.wondrousmagitek;
 
 import net.dragonhill.wondrousmagitek.config.Constants;
-import net.dragonhill.wondrousmagitek.global.ScopedServerServices;
+import net.dragonhill.wondrousmagitek.global.ScopedState;
 import net.dragonhill.wondrousmagitek.global.chunkLoading.AreaStabilizerManager;
+import net.dragonhill.wondrousmagitek.blocks.areastabilizer.AreaStabilizerBoundsRenderer;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.WorldEvent;
@@ -17,12 +19,12 @@ import net.minecraftforge.fml.event.server.FMLServerStoppedEvent;
 public class ForgeEventDispatcher {
 	@SubscribeEvent
 	public static final void onServerAboutToStart(FMLServerAboutToStartEvent event) {
-		ScopedServerServices.init();
+		ScopedState.init();
 	}
 
 	@SubscribeEvent
 	public static final void onServerStoppedEvent(FMLServerStoppedEvent event) {
-		ScopedServerServices.teardown();
+		ScopedState.teardown();
 	}
 
 	@SubscribeEvent
@@ -36,6 +38,13 @@ public class ForgeEventDispatcher {
 					world.resetUpdateEntityTick();
 				}
 			}
+		}
+	}
+
+	@SubscribeEvent
+	public static void onRenderWorldLastEvent(RenderWorldLastEvent event) {
+		if(ScopedState.areaStabilizerVisualization != null) {
+			AreaStabilizerBoundsRenderer.render(event, ScopedState.areaStabilizerVisualization);
 		}
 	}
 

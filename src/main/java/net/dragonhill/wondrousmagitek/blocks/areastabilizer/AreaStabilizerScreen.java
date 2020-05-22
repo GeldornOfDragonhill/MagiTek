@@ -1,11 +1,14 @@
 package net.dragonhill.wondrousmagitek.blocks.areastabilizer;
 
+import net.dragonhill.wondrousmagitek.global.ScopedState;
 import net.dragonhill.wondrousmagitek.network.ModNetworkChannel;
 import net.dragonhill.wondrousmagitek.ui.InventoryScreen;
 import net.dragonhill.wondrousmagitek.ui.widgets.RangeSelector;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.util.Tuple;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.text.ITextComponent;
 import org.lwjgl.opengl.GL11;
 
@@ -34,11 +37,25 @@ public class AreaStabilizerScreen extends InventoryScreen<AreaStabilizerContaine
 		final int x = this.getClientX();
 		final int y = this.getClientY();
 
+		AreaStabilizerContainer container = this.container;
+
 		this.addButton(this.rangeSelector = new RangeSelector(x, y + 27, 50, 16, 0, 100, 15, rangeSelector -> {
-			this.container.radius.set(rangeSelector.getCurrent());
-			ModNetworkChannel.sendToServer(new SetRangeCommandMessage(this.container));
+			container.radius.set(rangeSelector.getCurrent());
+			ModNetworkChannel.sendToServer(new SetRangeCommandMessage(container));
+			this.toggleOrUpdateVisualization(false);
 		}));
-		this.addButton(this.button = new Button(x, y + 50, 60,20, I18n.format("ui.wondrousmagitek.area_stabilizer.visualize_button"), button -> {}));
+		this.addButton(this.button = new Button(x, y + 50, 60,20, I18n.format("ui.wondrousmagitek.area_stabilizer.visualize_button"), button -> {
+			this.toggleOrUpdateVisualization(true);
+		}));
+	}
+
+	private void toggleOrUpdateVisualization(boolean toggle) {
+		if(toggle && ScopedState.areaStabilizerVisualization != null) {
+			ScopedState.areaStabilizerVisualization = null;
+			return;
+		}
+
+		ScopedState.areaStabilizerVisualization = new Tuple<>(new ChunkPos(container.getTileEntity().getPos()), container.radius.get());
 	}
 
 	@Override

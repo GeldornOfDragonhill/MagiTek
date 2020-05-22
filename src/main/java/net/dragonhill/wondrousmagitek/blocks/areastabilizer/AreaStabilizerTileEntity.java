@@ -1,6 +1,7 @@
 package net.dragonhill.wondrousmagitek.blocks.areastabilizer;
 
 import net.dragonhill.wondrousmagitek.config.Config;
+import net.dragonhill.wondrousmagitek.global.ScopedState;
 import net.dragonhill.wondrousmagitek.global.chunkLoading.AreaStabilizerManager;
 import net.dragonhill.wondrousmagitek.init.ModBlocks;
 import net.dragonhill.wondrousmagitek.init.ModTileEntities;
@@ -13,6 +14,7 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.text.ITextComponent;
 
 import javax.annotation.Nullable;
@@ -36,7 +38,7 @@ public class AreaStabilizerTileEntity extends TileEntity implements INamedContai
 			return;
 		}
 
-		if(this.radius >= Config.SERVER.maxRadiusPerAreaStabilizer.get()) {
+		if(radius > Config.SERVER.maxRadiusPerAreaStabilizer.get()) {
 			LogHelper.getLogger().warn("The player {} to set the radius too big", sender.getName().getString());
 			return;
 		}
@@ -97,6 +99,12 @@ public class AreaStabilizerTileEntity extends TileEntity implements INamedContai
 		super.remove();
 
 		if(this.world.isRemote) {
+			if(ScopedState.areaStabilizerVisualization != null) {
+				ChunkPos self = new ChunkPos(this.getPos());
+				if(self.equals(ScopedState.areaStabilizerVisualization.getA())) {
+					ScopedState.areaStabilizerVisualization = null;
+				}
+			}
 			return;
 		}
 

@@ -2,7 +2,7 @@ package net.dragonhill.wondrousmagitek.global.chunkLoading;
 
 import net.dragonhill.wondrousmagitek.config.Config;
 import net.dragonhill.wondrousmagitek.config.Constants;
-import net.dragonhill.wondrousmagitek.global.ScopedServerServices;
+import net.dragonhill.wondrousmagitek.global.ScopedState;
 import net.dragonhill.wondrousmagitek.blocks.areastabilizer.AreaStabilizerTileEntity;
 import net.dragonhill.wondrousmagitek.util.ConsumerDataSink;
 import net.dragonhill.wondrousmagitek.util.LogHelper;
@@ -22,7 +22,7 @@ import java.util.Map;
 
 public class AreaStabilizerManager {
 	public static AreaStabilizerManager getInstance() {
-		return ScopedServerServices.getAreaStabilizerManager();
+		return ScopedState.getAreaStabilizerManager();
 	}
 
 	private boolean isLoaded = false;
