@@ -77,13 +77,14 @@ public class AreaStabilizerUserManager {
 				this.tryActivateAll(server);
 			}
 		} else { //data != null
-			if(data.getRadius() == tileEntity.getRadius()) {
+			int newRadius = tileEntity.getRadius();
+			if(data.getRadius() == newRadius) {
 				//Nothing changed
 				return;
 			}
 
 			Set<ChunkPos> oldChunks = CoordinateHelper.getChunksAsSetFromPosAndRadius(pos.getPos(), data.getRadius());
-			Set<ChunkPos> newChunks = CoordinateHelper.getChunksAsSetFromPosAndRadius(pos.getPos(), tileEntity.getRadius());
+			Set<ChunkPos> newChunks = CoordinateHelper.getChunksAsSetFromPosAndRadius(pos.getPos(), newRadius);
 
 			int sizeDifference = newChunks.size() - oldChunks.size();
 
@@ -106,6 +107,7 @@ public class AreaStabilizerUserManager {
 			}
 
 			this.currentChunks += sizeDifference;
+			data.setRadius(newRadius);
 
 			//If size was reduced and there are area stabilizers that are not loaded, reevaluate
 			if(this.hasLoadersOverLimit && sizeDifference < 0) {

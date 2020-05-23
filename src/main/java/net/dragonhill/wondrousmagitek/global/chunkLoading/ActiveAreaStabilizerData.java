@@ -8,6 +8,10 @@ public class ActiveAreaStabilizerData {
 		return this.radius;
 	}
 
+	protected void setRadius(int radius) {
+		this.radius = radius;
+	}
+
 	public ActiveAreaStabilizerData(DimensionBlockPosition areaStabilizerPosition, int radius) {
 		this.areaStabilizerPosition = areaStabilizerPosition;
 		this.radius = radius;
