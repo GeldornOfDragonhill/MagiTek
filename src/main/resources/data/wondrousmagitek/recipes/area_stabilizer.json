@@ -1,0 +1,29 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"opo",
+		"rar",
+		"oeo"
+	],
+	"key": {
+		"a": {
+			"item": "wondrousmagitek:dimensional_anchor"
+		},
+		"o": {
+			"item": "minecraft:obsidian"
+		},
+		"r": {
+			"item": "minecraft:redstone_block"
+		},
+		"e": {
+			"tag": "forge:gems/emerald"
+		},
+		"p": {
+			"item": "minecraft:heavy_weighted_pressure_plate"
+		}
+	},
+	"result": {
+		"item": "wondrousmagitek:area_stabilizer",
+		"count": 1
+	}
+}

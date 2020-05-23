@@ -1,0 +1,26 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		" e ",
+		" c ",
+		"did"
+	],
+	"key": {
+		"e": {
+			"item": "minecraft:ender_eye"
+		},
+		"c": {
+			"item": "minecraft:clock"
+		},
+		"i": {
+			"item": "minecraft:iron_block"
+		},
+		"d": {
+			"tag": "forge:gems/diamond"
+		}
+	},
+	"result": {
+		"item": "wondrousmagitek:dimensional_anchor",
+		"count": 1
+	}
+}

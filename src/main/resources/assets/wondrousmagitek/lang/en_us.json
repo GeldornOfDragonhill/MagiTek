@@ -1,5 +1,6 @@
 {
     "itemGroup.wondrousmagitek": "Wondrous Magitek",
+	"item.wondrousmagitek.dimensional_anchor": "Dimensional Anchor",
 	"block.wondrousmagitek.area_stabilizer": "Area Stabilizer",
 	"block.wondrousmagitek.tick_block": "Test tick block",
 	"message.wondrousmagitek.area_stabilizer.over_limit": "The area stabilizer at %s couldn't be activated because you are over the ticket limit",
