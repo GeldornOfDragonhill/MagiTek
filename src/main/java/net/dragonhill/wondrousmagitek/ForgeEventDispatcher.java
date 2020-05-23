@@ -5,6 +5,8 @@ import net.dragonhill.wondrousmagitek.global.ScopedState;
 import net.dragonhill.wondrousmagitek.global.chunkLoading.AreaStabilizerManager;
 import net.dragonhill.wondrousmagitek.blocks.areastabilizer.AreaStabilizerBoundsRenderer;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -42,6 +44,7 @@ public class ForgeEventDispatcher {
 	}
 
 	@SubscribeEvent
+	@OnlyIn(Dist.CLIENT)
 	public static void onRenderWorldLastEvent(RenderWorldLastEvent event) {
 		if(ScopedState.areaStabilizerVisualization != null) {
 			AreaStabilizerBoundsRenderer.render(event, ScopedState.areaStabilizerVisualization);

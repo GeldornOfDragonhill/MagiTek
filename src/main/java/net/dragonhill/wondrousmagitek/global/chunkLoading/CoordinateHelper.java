@@ -9,12 +9,12 @@ import java.util.function.Function;
 public class CoordinateHelper {
 	public static final <T extends Collection<ChunkPos>> T getChunksFromPosAndRadius(BlockPos pos, int radius, Function<Integer, T> createCollectionWithSize) {
 		final int chunkX = pos.getX() >> 4;
-		final int chunkY = pos.getY() >> 4;
+		final int chunkZ = pos.getZ() >> 4;
 
 		final int xStart = chunkX - radius;
 		final int xStop = chunkX + radius;
-		final int zStart = chunkY - radius;
-		final int zStop = chunkY + radius;
+		final int zStart = chunkZ - radius;
+		final int zStop = chunkZ + radius;
 
 		int numChunks = 2 * radius + 1;
 		numChunks = numChunks * numChunks;

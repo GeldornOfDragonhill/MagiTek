@@ -16,6 +16,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 
 import javax.annotation.Nullable;
 
@@ -44,6 +45,8 @@ public class AreaStabilizerTileEntity extends TileEntity implements INamedContai
 		}
 
 		this.radius = radius;
+		this.markDirty();
+
 		AreaStabilizerManager.getInstance().addOrUpdate(this);
 	}
 
@@ -74,7 +77,7 @@ public class AreaStabilizerTileEntity extends TileEntity implements INamedContai
 
 	@Override
 	public ITextComponent getDisplayName() {
-		return ModBlocks.areaStabilizer.get().getNameTextComponent();
+		return new TranslationTextComponent(ModBlocks.areaStabilizer.get().getTranslationKey());
 	}
 
 	@Nullable

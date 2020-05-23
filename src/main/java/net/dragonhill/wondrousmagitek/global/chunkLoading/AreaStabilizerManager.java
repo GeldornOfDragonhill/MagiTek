@@ -91,6 +91,8 @@ public class AreaStabilizerManager {
 
 			if(tileEntity instanceof AreaStabilizerTileEntity) {
 				this.addOrUpdate((AreaStabilizerTileEntity)tileEntity);
+			} else {
+				LogHelper.getLogger().warn(String.format("Tile entity of area stabilizer @%s couldn't be loaded", position.toString()));
 			}
 		}
 	}

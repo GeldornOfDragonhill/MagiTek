@@ -9,6 +9,7 @@ import java.util.*;
 
 public class TicketAllocator {
 	private static final TicketType<ChunkPos> modTicket = TicketType.create(Constants.modId, Comparator.comparingLong(ChunkPos::asLong));
+	private static final int TICKET_DISTANCE = 2;
 
 	private Map<Integer, Map<ChunkPos, List<ActiveAreaStabilizerData>>> tickets = new HashMap<>();
 
@@ -26,7 +27,7 @@ public class TicketAllocator {
 		List<ActiveAreaStabilizerData> claimHolders = dimensionTickets.computeIfAbsent(chunk, k -> new ArrayList<>());
 
 		if(claimHolders.size() == 0) {
-			world.getChunkProvider().registerTicket(TicketAllocator.modTicket, chunk, 2, chunk);
+			world.getChunkProvider().registerTicket(TicketAllocator.modTicket, chunk, TicketAllocator.TICKET_DISTANCE, chunk);
 		}
 
 		if(claimHolders.contains(instance)) {
@@ -52,7 +53,7 @@ public class TicketAllocator {
 		}
 
 		if(claimHolders.isEmpty()) {
-			world.getChunkProvider().releaseTicket(TicketAllocator.modTicket, chunk, 2, chunk);
+			world.getChunkProvider().releaseTicket(TicketAllocator.modTicket, chunk, TicketAllocator.TICKET_DISTANCE, chunk);
 			dimensionTickets.remove(chunk);
 		}
 

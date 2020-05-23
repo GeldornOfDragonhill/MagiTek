@@ -33,6 +33,6 @@ public class SetTickNameCommandMessage extends TileEntityCommandMessage {
 	@Override
 	protected void deserialize(PacketBuffer buffer) {
 		super.deserialize(buffer);
-		this.name = buffer.readString();
+		this.name = buffer.readString(Short.MAX_VALUE); //TODO: maybe limit that to something reasonable
 	}
 }

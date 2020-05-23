@@ -60,7 +60,9 @@ public class AreaStabilizerUserManager {
 	public void addOrUpdate(MinecraftServer server, DimensionBlockPosition pos, AreaStabilizerTileEntity tileEntity) {
 		//If the target player is currently not online, just check if the position is known
 		if(!this.isCurrentlyOnline) {
-			this.ownedAreaStabilizers.computeIfAbsent(pos, k -> null);
+			if(!this.ownedAreaStabilizers.containsKey(pos)) {
+				this.ownedAreaStabilizers.put(pos, null);
+			}
 			return;
 		}
 
@@ -108,6 +110,8 @@ public class AreaStabilizerUserManager {
 
 			this.currentChunks += sizeDifference;
 			data.setRadius(newRadius);
+
+			LogHelper.getLogger().debug("Changed area stabilizer @" + pos.toString());
 
 			//If size was reduced and there are area stabilizers that are not loaded, reevaluate
 			if(this.hasLoadersOverLimit && sizeDifference < 0) {
@@ -195,6 +199,8 @@ public class AreaStabilizerUserManager {
 		this.currentChunks += chunks.size();
 		this.ownedAreaStabilizers.replace(areaStabilizerPos, data);
 
+		LogHelper.getLogger().debug("Loaded area stabilizer @" + areaStabilizerPos.toString());
+
 		return true;
 	}
 
@@ -233,6 +239,8 @@ public class AreaStabilizerUserManager {
 		this.currentChunks -= chunks.size();
 
 		this.ownedAreaStabilizers.replace(areaStabilizerPos, null);
+
+		LogHelper.getLogger().debug("Unloaded area stabilizer @" + areaStabilizerPos.toString());
 	}
 
 	private void sendMessageToPlayer(MinecraftServer server, String translationKey, Object... args) {

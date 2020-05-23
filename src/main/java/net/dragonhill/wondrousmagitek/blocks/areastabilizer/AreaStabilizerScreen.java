@@ -50,7 +50,13 @@ public class AreaStabilizerScreen extends InventoryScreen<AreaStabilizerContaine
 	}
 
 	private void toggleOrUpdateVisualization(boolean toggle) {
-		if(toggle && ScopedState.areaStabilizerVisualization != null) {
+		boolean visualizationActive = ScopedState.areaStabilizerVisualization != null;
+
+		if(!toggle && !visualizationActive) {
+			return;
+		}
+
+		if(toggle && visualizationActive) {
 			ScopedState.areaStabilizerVisualization = null;
 			return;
 		}
@@ -63,8 +69,6 @@ public class AreaStabilizerScreen extends InventoryScreen<AreaStabilizerContaine
 
 	@Override
 	protected void drawClientForeground(int mouseX, int mouseY) {
-		this.font.drawString(this.title.getFormattedText(), 8f, 5f, 0xFF000000);
-
 		GL11.glPushMatrix();
 		GL11.glScalef(0.8f, 0.8f, 0.8f);
 		this.font.drawString(this.radiusHelpMessage, 10f, 30f, 0xFF000000);
