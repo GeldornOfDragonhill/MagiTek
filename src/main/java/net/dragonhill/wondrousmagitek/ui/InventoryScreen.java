@@ -33,6 +33,10 @@ public abstract class InventoryScreen<T extends InventoryScreenContainer> extend
 		return (this.height - this.ySize) / 2 + 7;
 	}
 
+	protected int getClientWidth() {
+		return this.xSize - 14;
+	}
+
 	@Override
 	public void render(int mouseX, int mouseY, float partialTicks) {
 		this.renderBackground();

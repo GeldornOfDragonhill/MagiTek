@@ -1,9 +1,11 @@
 package net.dragonhill.wondrousmagitek.blocks.areastabilizer;
 
 import net.dragonhill.wondrousmagitek.config.Config;
+import net.dragonhill.wondrousmagitek.init.ModBlocks;
 import net.dragonhill.wondrousmagitek.init.ModContainers;
 import net.dragonhill.wondrousmagitek.network.values.IntNetValue;
 import net.dragonhill.wondrousmagitek.ui.InventoryScreenContainer;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.network.PacketBuffer;
 
@@ -23,6 +25,11 @@ public class AreaStabilizerContainer extends InventoryScreenContainer<AreaStabil
 	@Override
 	protected int getClientHeight() {
 		return 85;
+	}
+
+	@Override
+	protected Block getBlock() {
+		return ModBlocks.areaStabilizer.get();
 	}
 
 	@Override

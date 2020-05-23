@@ -32,5 +32,6 @@ public class BoolNetValue extends NetValue {
 	@Override
 	protected void deserialize(PacketBuffer buffer) {
 		this.value = buffer.readBoolean();
+		this.executeCallback(this);
 	}
 }

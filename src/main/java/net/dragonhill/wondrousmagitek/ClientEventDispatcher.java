@@ -1,6 +1,7 @@
 package net.dragonhill.wondrousmagitek;
 
 import net.dragonhill.wondrousmagitek.blocks.areastabilizer.AreaStabilizerScreen;
+import net.dragonhill.wondrousmagitek.blocks.tick.TickScreen;
 import net.dragonhill.wondrousmagitek.config.Constants;
 import net.dragonhill.wondrousmagitek.init.ModContainers;
 import net.minecraft.client.gui.ScreenManager;
@@ -16,5 +17,6 @@ public class ClientEventDispatcher {
 	public static void onClientSetup(FMLClientSetupEvent event) {
 		//TODO: get this into init package
 		ScreenManager.registerFactory(ModContainers.AREA_STABILIZER_CONTAINER.get(), AreaStabilizerScreen::new);
+		ScreenManager.registerFactory(ModContainers.TICK_CONTAINER.get(), TickScreen::new);
 	}
 }

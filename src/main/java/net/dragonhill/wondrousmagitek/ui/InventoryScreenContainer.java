@@ -5,6 +5,7 @@ import net.dragonhill.wondrousmagitek.network.ModNetworkChannel;
 import net.dragonhill.wondrousmagitek.network.values.INetValue;
 import net.dragonhill.wondrousmagitek.network.values.INetValueListHolder;
 import net.dragonhill.wondrousmagitek.network.values.NetValueList;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -74,7 +75,7 @@ public abstract class InventoryScreenContainer<TTileEntity extends TileEntity> e
 
 	@Override
 	public boolean canInteractWith(PlayerEntity playerIn) {
-		return this.isWithinUsableDistance(this.canInteractWithCallable, playerIn, ModBlocks.areaStabilizer.get());
+		return this.isWithinUsableDistance(this.canInteractWithCallable, playerIn, this.getBlock());
 	}
 
 	@Override
@@ -94,7 +95,7 @@ public abstract class InventoryScreenContainer<TTileEntity extends TileEntity> e
 	}
 
 	protected abstract int getClientHeight();
-
+	protected abstract Block getBlock();
 
 
 

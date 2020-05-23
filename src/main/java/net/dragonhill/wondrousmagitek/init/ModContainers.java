@@ -1,6 +1,7 @@
 package net.dragonhill.wondrousmagitek.init;
 
 import net.dragonhill.wondrousmagitek.blocks.areastabilizer.AreaStabilizerContainer;
+import net.dragonhill.wondrousmagitek.blocks.tick.TickContainer;
 import net.dragonhill.wondrousmagitek.config.Constants;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraftforge.common.extensions.IForgeContainerType;
@@ -12,4 +13,5 @@ public class ModContainers {
 	public static final DeferredRegister<ContainerType<?>> CONTAINERS = new DeferredRegister<>(ForgeRegistries.CONTAINERS, Constants.modId);
 
 	public static final RegistryObject<ContainerType<AreaStabilizerContainer>> AREA_STABILIZER_CONTAINER = CONTAINERS.register("area_stabilizer_container", () -> IForgeContainerType.create(AreaStabilizerContainer::new));
+	public static final RegistryObject<ContainerType<TickContainer>> TICK_CONTAINER = CONTAINERS.register("tick_container", () -> IForgeContainerType.create(TickContainer::new));
 }
