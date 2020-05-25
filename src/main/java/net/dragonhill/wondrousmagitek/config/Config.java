@@ -10,17 +10,12 @@ import org.apache.commons.lang3.tuple.Pair;
 public class Config {
 	public static class ServerConfig {
 
-		public final BooleanValue enableAreaStabilizers;
 		public final IntValue maxTicketsPerPlayer;
 		public final IntValue maxRadiusPerAreaStabilizer;
 
 		private ServerConfig(final ForgeConfigSpec.Builder builder) {
 			builder.comment("AreaStabilizer settings (chunk loading)")
 				.push("areaStabilizer");
-
-			this.enableAreaStabilizers = builder
-				.comment("Enable the area stabilizers feature")
-				.define("enable", true);
 
 			this.maxTicketsPerPlayer = builder
 				.comment("The maximum number of tickets (loaded chunks) a player could claim")

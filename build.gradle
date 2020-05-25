@@ -20,8 +20,8 @@ repositories {
     }
 }
 
-version = '0.0.1'
-group = 'net.dragonhill.wondrousmagitek' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+version = "${mc_version}-0.0.1.0-alpha"
+group = "net.dragonhill.wondrousmagitek"
 archivesBaseName = 'wondrousmagitek'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
