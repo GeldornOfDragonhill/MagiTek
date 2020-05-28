@@ -1,0 +1,15 @@
+{
+	"type": "minecraft:block",
+	"pools": [
+		{
+			"name": "area_stabilizer",
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"name": "wondrousmagitek:area_stabilizer"
+				}
+			]
+		}
+	]
+}

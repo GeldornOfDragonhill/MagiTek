@@ -118,7 +118,10 @@ public class AreaStabilizerTileEntity extends TileEntity implements INamedContai
 	public CompoundNBT write(CompoundNBT compound) {
 		super.write(compound);
 
-		compound.putString("owner", this.owner);
+		if(this.owner != null) {
+			compound.putString("owner", this.owner);
+		}
+
 		compound.putInt("radius", this.radius);
 
 		return compound;
