@@ -19,6 +19,6 @@ public class ModTileEntities {
 		return tileEntities.register(name, () -> TileEntityType.Builder.create(factoryIn, blockRegistryObject.get()).build(null));
 	}
 
-	public static final RegistryObject<TileEntityType<AreaStabilizerTileEntity>> areaStabilizerTileEntity = register("area_stabilizer_te", AreaStabilizerTileEntity::new, ModBlocks.areaStabilizer);
-	public static final RegistryObject<TileEntityType<TickTileEntity>> tickTileEntity = register("tick_te", TickTileEntity::new, ModBlocks.tickBlock);
+	public static final RegistryObject<TileEntityType<AreaStabilizerTileEntity>> areaStabilizerTileEntity = register("area_stabilizer", AreaStabilizerTileEntity::new, ModBlocks.areaStabilizer);
+	public static final RegistryObject<TileEntityType<TickTileEntity>> tickTileEntity = register("tick_block", TickTileEntity::new, ModBlocks.tickBlock);
 }

@@ -20,7 +20,7 @@ repositories {
     }
 }
 
-version = "${mc_version}-0.0.1.0-alpha"
+version = "${mc_version}-${wondrousmagitek_version}"
 group = "net.dragonhill.wondrousmagitek"
 archivesBaseName = 'wondrousmagitek'
 
