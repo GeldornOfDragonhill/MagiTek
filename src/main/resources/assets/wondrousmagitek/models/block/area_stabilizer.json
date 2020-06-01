@@ -1,6 +1,12 @@
 {
-	"parent": "block/cube_all",
+	"parent": "block/cube",
 	"textures": {
-		"all": "wondrousmagitek:/block/area_stabilizer"
-	}
+		"particle": "wondrousmagitek:/block/area_stabilizer_front",
+		"down": "wondrousmagitek:/block/area_stabilizer_bottom",
+		"up": "wondrousmagitek:/block/area_stabilizer_top",
+		"east": "wondrousmagitek:/block/area_stabilizer_right",
+		"west": "wondrousmagitek:/block/area_stabilizer_left",
+		"north": "wondrousmagitek:/block/area_stabilizer_front",
+		"south": "wondrousmagitek:/block/area_stabilizer_back"
+  }
 }

@@ -1,7 +1,10 @@
 {
 	"variants": {
-		"": {
-			"model": "wondrousmagitek:block/area_stabilizer"
-		}
+		"facing=north": { "model": "wondrousmagitek:block/area_stabilizer" },
+		"facing=south": { "model": "wondrousmagitek:block/area_stabilizer", "y": 180 },
+		"facing=west": { "model": "wondrousmagitek:block/area_stabilizer", "y": 270 },
+		"facing=east": { "model": "wondrousmagitek:block/area_stabilizer", "y": 90 },
+		"facing=up": { "model": "wondrousmagitek:block/area_stabilizer", "x": -90 },
+		"facing=down": { "model": "wondrousmagitek:block/area_stabilizer", "x": 90 }
 	}
 }
