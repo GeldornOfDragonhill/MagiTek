@@ -1,12 +1,24 @@
 {
-	"parent": "block/cube",
+	"credit": "(c) 2020 by Mario Fraiss - http://www.mariofraiss.com/",
+	"license": "GNU Affero General Public License v3.0",
+	"texture_size": [32, 32],
 	"textures": {
-		"particle": "wondrousmagitek:/block/area_stabilizer_front",
-		"down": "wondrousmagitek:/block/area_stabilizer_bottom",
-		"up": "wondrousmagitek:/block/area_stabilizer_top",
-		"east": "wondrousmagitek:/block/area_stabilizer_right",
-		"west": "wondrousmagitek:/block/area_stabilizer_left",
-		"north": "wondrousmagitek:/block/area_stabilizer_front",
-		"south": "wondrousmagitek:/block/area_stabilizer_back"
-  }
+		"0": "wondrousmagitek:block/area_stabilizer",
+		"1": "wondrousmagitek:block/generic_gold_blue",
+		"particle": "wondrousmagitek:block/area_stabilizer"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [16, 16, 16],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#0"},
+				"east": {"uv": [0, 0, 16, 16], "texture": "#0"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#0"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#0"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#1"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#1"}
+			}
+		}
+	]
 }
