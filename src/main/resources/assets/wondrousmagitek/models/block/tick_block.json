@@ -1,6 +1,24 @@
 {
-	"parent": "block/cube_all",
+	"credit": "(c) 2020 by Mario Fraiss - http://www.mariofraiss.com/",
+	"license": "GNU Affero General Public License v3.0",
+	"texture_size": [32, 32],
 	"textures": {
-		"all": "wondrousmagitek:/block/tick_block"
-	}
+		"0": "wondrousmagitek:block/generic_gold_blue",
+		"1": "wondrousmagitek:block/tick_block",
+		"particle": "wondrousmagitek:block/generic_gold_blue"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [16, 16, 16],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#1"},
+				"east": {"uv": [0, 0, 16, 16], "texture": "#1"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#1"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#1"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#0"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#0"}
+			}
+		}
+	]
 }
